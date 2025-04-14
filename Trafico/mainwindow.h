@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -18,9 +19,10 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_pushButton_clicked();
+    void cambiarSemaforo();
 
 private:
     Ui::MainWindow *ui;
+    QTimer *timer;
 };
 #endif // MAINWINDOW_H
