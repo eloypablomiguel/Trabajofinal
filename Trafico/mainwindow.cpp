@@ -8,7 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    //Se cargan las imagenes semaforo coches
+    //Se cargan las imagenes semaforo coches y se escalan
     QPixmap verde("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\semaforo_verde.jpg");
     QPixmap amarillo("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\semaforo_amarillo.jpg");
     QPixmap rojo("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\semaforo_rojo.jpg");
@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->label_6->setVisible(true);
     //imagen cargada
 
-    //Se cargan las imagenes semaforo peatones
+    //Se cargan las imagenes semaforo peatones y se escalan
     QPixmap verdep("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\Semaforopeaton_verde.jpg");
     QPixmap rojop("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\Semaforopeaton_rojo.jpg");
     QPixmap pixmapEscaladopr = rojop.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -47,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->label_5->setVisible(true);
     //imagenes cargadas
 
+    //compo no deja usar _sleep() usamos:
     //QTimer *timer = new QTimer(this);
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::cambiarSemaforo);
@@ -58,7 +59,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
+//escalamos calee
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
     QMainWindow::resizeEvent(event);
@@ -73,7 +74,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     int y = (this->height() - ui->label_6->height()) / 2;
     ui->label_6->move(x, y);
 
-    //colocamos semaforos
+    //colocamos semaforos. Solo queda bien para pantalla completa
     ui->label->move(x+150, y+80);
     ui->label_2->move(x+150, y+80);
     ui->label_3->move(x+150, y+80);
