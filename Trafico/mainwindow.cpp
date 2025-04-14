@@ -2,6 +2,36 @@
 #include "ui_mainwindow.h"
 #include <QTimer>
 
+
+class Semaforo {
+public:
+    QLabel *verde;
+    QLabel *amarillo;
+    QLabel *rojo;
+
+    Semaforo(QLabel *v, QLabel *a, QLabel *r)
+        : verde(v), amarillo(a), rojo(r) {}
+
+    void mostrarVerde() {
+        verde->setVisible(true);
+        if (amarillo) amarillo->setVisible(false); //crashea sin if
+        rojo->setVisible(false);
+    }
+
+    void mostrarAmarillo() {
+        verde->setVisible(false);
+        if (amarillo) amarillo->setVisible(true);  //crashea sin if
+        rojo->setVisible(false);
+    }
+
+    void mostrarRojo() {
+        verde->setVisible(false);
+        if (amarillo) amarillo->setVisible(false);  //crashea sin if
+        rojo->setVisible(true);
+    }
+};
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -19,10 +49,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->label->setPixmap(pixmapEscaladov);
     ui->label_2->setPixmap(pixmapEscaladoa);
     ui->label_3->setPixmap(pixmapEscalador);
-
-    ui->label->setVisible(true);
-    ui->label_2->setVisible(false);
-    ui->label_3->setVisible(false);
     //imagenes cargadas
 
     //Se carga  imagen calle
@@ -43,23 +69,24 @@ MainWindow::MainWindow(QWidget *parent)
     ui->label_4->setPixmap(pixmapEscaladopv);
     ui->label_5->setPixmap(pixmapEscaladopr);
 
-    ui->label_4->setVisible(false);
-    ui->label_5->setVisible(true);
-    //imagenes cargadas
-
     //compo no deja usar _sleep() usamos:
     //QTimer *timer = new QTimer(this);
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::cambiarSemaforo);
     timer->start();
+
+    //creamos semaforos
+    semaforoCoches = new Semaforo(ui->label, ui->label_2, ui->label_3);
+    semaforoPeatones = new Semaforo(ui->label_4, nullptr, ui->label_5);
 }
+
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
 
-//escalamos calee
+//escalamos calle
 void MainWindow::resizeEvent(QResizeEvent *event)
 {
     QMainWindow::resizeEvent(event);
@@ -82,40 +109,46 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     ui->label_5->move(x+145, y+90);
 }
 
-
 //Funcion q cambia los estados del semaforo
 void MainWindow::cambiarSemaforo()
 {
+    static int estado = 0;
+    estado = (estado + 1) % 3;
 
-        static int estado = 0;
-        estado = (estado + 1) % 3;  // Cambia entre 0, 1, 2 (verde, amarillo, rojo)
+    switch (estado) {
+    case 0: // Verde
+        semaforoCoches->mostrarVerde();
+        semaforoPeatones->mostrarRojo();
+        timer->setInterval(8000);
+        break;
+    case 1: // Amarillo
+        semaforoCoches->mostrarAmarillo();
+        semaforoPeatones->mostrarRojo();
+        timer->setInterval(3000);
+        break;
+    case 2: // Rojo
+        semaforoCoches->mostrarRojo();
+        semaforoPeatones->mostrarVerde();
+        timer->setInterval(6000);
 
-        if (estado == 0) {  // Verde
-            ui->label->setVisible(true);
-            ui->label_2->setVisible(false);
-            ui->label_3->setVisible(false);
 
-            ui->label_4->setVisible(false);
-            ui->label_5->setVisible(true);
+        //nobme sale q parpadee
+        /*timerparpadeo = new QTimer(this);
+        connect(timerparpadeo, &QTimer::timeout, [this]() {
+            static bool estadoParpadeo = false;
+            if (estadoParpadeo) {
+                semaforoPeatones->mostrarRojo();
+            } else {
+                semaforoPeatones->mostrarVerde();
+            }
+            estadoParpadeo = !estadoParpadeo;  // Alterna el estado
+        });
 
-            timer->setInterval(8000); // Cambia cada 3 segundos
-        } else if (estado == 1) {  // Amarillo
-            ui->label->setVisible(false);
-            ui->label_2->setVisible(true);
-            ui->label_3->setVisible(false);
-
-            ui->label_4->setVisible(false);
-            ui->label_5->setVisible(true);
-
-            timer->setInterval(3000); // Cambia cada 3 segundos
-        } else if (estado == 2) {  // Rojo
-            ui->label->setVisible(false);
-            ui->label_2->setVisible(false);
-            ui->label_3->setVisible(true);
-
-            ui->label_4->setVisible(true);
-            ui->label_5->setVisible(false);
-
-            timer->setInterval(8000); // Cambia cada 3 segundos
-        }
+        timerparpadeo->start(500);
+        /*semaforoPeatones->mostrarRojo();
+        timer->setInterval(500);
+        semaforoPeatones->mostrarVerde();
+        timer->setInterval(500);*/
+        break;
+    }
 }

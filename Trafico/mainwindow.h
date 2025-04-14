@@ -4,11 +4,16 @@
 #include <QMainWindow>
 #include <QTimer>
 
+
+class Semaforo;
+
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
 }
 QT_END_NAMESPACE
+
 
 class MainWindow : public QMainWindow
 {
@@ -27,5 +32,9 @@ protected:
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
+    QTimer *timerparpadeo;
+
+    Semaforo *semaforoCoches;
+    Semaforo *semaforoPeatones;
 };
 #endif // MAINWINDOW_H
