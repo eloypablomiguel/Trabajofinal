@@ -68,9 +68,17 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     ui->label_6->setPixmap(pixmapEscaladocalle);
     ui->label_6->resize(pixmapEscaladocalle.size());
 
+    //centramos calle
     int x = (this->width() - ui->label_6->width()) / 2;
     int y = (this->height() - ui->label_6->height()) / 2;
     ui->label_6->move(x, y);
+
+    //colocamos semaforos
+    ui->label->move(x+150, y+80);
+    ui->label_2->move(x+150, y+80);
+    ui->label_3->move(x+150, y+80);
+    ui->label_4->move(x+145, y+90);
+    ui->label_5->move(x+145, y+90);
 }
 
 
