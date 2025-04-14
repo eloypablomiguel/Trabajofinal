@@ -27,8 +27,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     //Se carga  imagen calle
     QPixmap calle("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\calle.png");
-    QPixmap pixmapEscaladocalle = calle.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QPixmap pixmapEscaladocalle = calle.scaledToHeight(this->height(), Qt::SmoothTransformation);
     ui->label_6->setPixmap(pixmapEscaladocalle);
+    ui->label_6->resize(pixmapEscaladocalle.size());
+    ui->label_6->setAlignment(Qt::AlignCenter);
+    ui->label_6->setVisible(true);
     //imagen cargada
 
     //Se cargan las imagenes semaforo peatones
@@ -54,6 +57,22 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
+void MainWindow::resizeEvent(QResizeEvent *event)
+{
+    QMainWindow::resizeEvent(event);
+
+    QPixmap calle("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\calle.png");
+    QPixmap pixmapEscaladocalle = calle.scaledToHeight(this->height(), Qt::SmoothTransformation);
+    ui->label_6->setPixmap(pixmapEscaladocalle);
+    ui->label_6->resize(pixmapEscaladocalle.size());
+
+    int x = (this->width() - ui->label_6->width()) / 2;
+    int y = (this->height() - ui->label_6->height()) / 2;
+    ui->label_6->move(x, y);
+}
+
 
 //Funcion q cambia los estados del semaforo
 void MainWindow::cambiarSemaforo()

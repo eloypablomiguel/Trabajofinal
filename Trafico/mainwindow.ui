@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1073</width>
-    <height>729</height>
+    <height>1893</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -109,16 +109,28 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>410</y>
-      <width>63</width>
-      <height>20</height>
+      <x>-10</x>
+      <y>-110</y>
+      <width>1111</width>
+      <height>1541</height>
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>calle.png</pixmap>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
+   <zorder>label_6</zorder>
+   <zorder>label</zorder>
+   <zorder>label_2</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label_5</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

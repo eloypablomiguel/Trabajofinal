@@ -21,6 +21,9 @@ public:
 private slots:
     void cambiarSemaforo();
 
+protected:
+    void resizeEvent(QResizeEvent *event);
+
 private:
     Ui::MainWindow *ui;
     QTimer *timer;
