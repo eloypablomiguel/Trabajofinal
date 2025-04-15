@@ -7,8 +7,7 @@
 //Ruta para cargar las imagenes
 //ruta eloy-->"C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 //ruta Pablo-->C:\Users\pablo\Desktop\Trabajofinal\Trafico;
-//miguel -> C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\;
-const QString ruta = "C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\";
+const QString ruta = "C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 
 class Semaforo {
 public:
@@ -190,4 +189,3 @@ void MainWindow::cambiarSemaforo()
         break;
     } //ELOY GAY
 }
-//ojjsjsjosaf

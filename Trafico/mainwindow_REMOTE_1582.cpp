@@ -7,7 +7,7 @@
 //Ruta para cargar las imagenes
 //ruta eloy-->"C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 //ruta Pablo-->C:\Users\pablo\Desktop\Trabajofinal\Trafico;
-//miguel -> C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\;
+//ruta miguel-->C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\;
 const QString ruta = "C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\";
 
 class Semaforo {
@@ -189,5 +189,4 @@ void MainWindow::cambiarSemaforo()
         timer->setInterval(500);*/
         break;
     } //ELOY GAY
-}
-//ojjsjsjosaf
+} //hola
