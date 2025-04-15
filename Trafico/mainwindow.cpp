@@ -4,6 +4,8 @@
 
 
 //ESTO ES UNA PRUEBA PARA VER SI FUNCIONA, HOLA SSSSSSSSSOCIO
+//Ruta para cargar las imagenes
+const QString ruta = "C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 
 class Semaforo {
 public:
@@ -41,9 +43,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     //Se cargan las imagenes semaforo coches y se escalan
-    QPixmap verde("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\semaforo_verde.jpg");
-    QPixmap amarillo("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\semaforo_amarillo.jpg");
-    QPixmap rojo("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\semaforo_rojo.jpg");
+    QPixmap verde(ruta + "semaforo_verde.jpg");
+    QPixmap amarillo(ruta + "semaforo_amarillo.jpg");
+    QPixmap rojo(ruta + "semaforo_rojo.jpg");
     QPixmap pixmapEscalador = rojo.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     QPixmap pixmapEscaladoa = amarillo.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     QPixmap pixmapEscaladov = verde.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -54,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent)
     //imagenes cargadas
 
     //Se carga  imagen calle
-    QPixmap calle("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\calle.png");
+    QPixmap calle(ruta + "calle.png");
     QPixmap pixmapEscaladocalle = calle.scaledToHeight(this->height(), Qt::SmoothTransformation);
     ui->label_6->setPixmap(pixmapEscaladocalle);
     ui->label_6->resize(pixmapEscaladocalle.size());
@@ -63,13 +65,22 @@ MainWindow::MainWindow(QWidget *parent)
     //imagen cargada
 
     //Se cargan las imagenes semaforo peatones y se escalan
-    QPixmap verdep("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\Semaforopeaton_verde.jpg");
-    QPixmap rojop("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\Semaforopeaton_rojo.jpg");
+    QPixmap verdep(ruta + "Semaforopeaton_verde.jpg");
+    QPixmap rojop(ruta + "Semaforopeaton_rojo.jpg");
     QPixmap pixmapEscaladopr = rojop.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     QPixmap pixmapEscaladopv = verdep.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     ui->label_4->setPixmap(pixmapEscaladopv);
     ui->label_5->setPixmap(pixmapEscaladopr);
+    //imagenes cargadas
+
+
+    //Se cargan las imagenes semaforo peatones y se escalan
+    QPixmap cocherojo(ruta + "coche_rojo.png");
+    QPixmap pixmapEscaladocoche=cocherojo.scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+    ui->label_7->setPixmap(pixmapEscaladocoche);
+    //imagenes cargadas
 
     //compo no deja usar _sleep() usamos:
     //QTimer *timer = new QTimer(this);
@@ -93,7 +104,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 {
     QMainWindow::resizeEvent(event);
 
-    QPixmap calle("C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\calle.png");
+    QPixmap calle(ruta + "calle.png");
     QPixmap pixmapEscaladocalle = calle.scaledToHeight(this->height(), Qt::SmoothTransformation);
     ui->label_6->setPixmap(pixmapEscaladocalle);
     ui->label_6->resize(pixmapEscaladocalle.size());
@@ -109,6 +120,9 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     ui->label_3->move(x+150, y+80);
     ui->label_4->move(x+145, y+90);
     ui->label_5->move(x+145, y+90);
+
+    //Prueba tamaño coche
+    ui->label_7->move(x+180,y+100); //Así el coche rojo esta carril izq
 }
 
 //Funcion q cambia los estados del semaforo
@@ -133,21 +147,25 @@ void MainWindow::cambiarSemaforo()
         semaforoPeatones->mostrarVerde();
         timer->setInterval(6000);
 
-
-        //nobme sale q parpadee
-        /*timerparpadeo = new QTimer(this);
-        connect(timerparpadeo, &QTimer::timeout, [this]() {
+        /*int parpa = 0;
+        //no me sale q parpadee
+        timerparpadeo = new QTimer(this);
+        connect(timerparpadeo, &QTimer::timeout, [this, &parpa]() {
             static bool estadoParpadeo = false;
             if (estadoParpadeo) {
                 semaforoPeatones->mostrarRojo();
+                parpa=parpa+1;
             } else {
                 semaforoPeatones->mostrarVerde();
             }
+            if (parpa==2) timerparpadeo->stop();
             estadoParpadeo = !estadoParpadeo;  // Alterna el estado
         });
 
+
+
         timerparpadeo->start(500);
-        /*semaforoPeatones->mostrarRojo();
+        semaforoPeatones->mostrarRojo();
         timer->setInterval(500);
         semaforoPeatones->mostrarVerde();
         timer->setInterval(500);*/
