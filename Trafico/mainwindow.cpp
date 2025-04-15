@@ -187,5 +187,5 @@ void MainWindow::cambiarSemaforo()
         semaforoPeatones->mostrarVerde();
         timer->setInterval(500);*/
         break;
-    }
+    } //ELOY GAY
 }
