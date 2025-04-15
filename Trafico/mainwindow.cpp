@@ -189,3 +189,4 @@ void MainWindow::cambiarSemaforo()
         break;
     } //ELOY GAY
 }
+//ojjsjsjosaf
