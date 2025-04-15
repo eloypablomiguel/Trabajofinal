@@ -3,6 +3,8 @@
 #include <QTimer>
 
 
+//ESTO ES UNA PRUEBA PARA VER SI FUNCIONA, HOLA SSSSSSSSSOCIO
+
 class Semaforo {
 public:
     QLabel *verde;
