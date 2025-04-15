@@ -157,6 +157,22 @@
      <pixmap>camion.png</pixmap>
     </property>
    </widget>
+   <widget class="QLabel" name="label_9">
+    <property name="geometry">
+     <rect>
+      <x>1200</x>
+      <y>790</y>
+      <width>411</width>
+      <height>521</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>paso_peatones.png</pixmap>
+    </property>
+   </widget>
    <zorder>label_6</zorder>
    <zorder>label</zorder>
    <zorder>label_2</zorder>
@@ -165,6 +181,7 @@
    <zorder>label_5</zorder>
    <zorder>label_7</zorder>
    <zorder>label_8</zorder>
+   <zorder>label_9</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

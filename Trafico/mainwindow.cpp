@@ -5,6 +5,8 @@
 
 //ESTO ES UNA PRUEBA PARA VER SI FUNCIONA, HOLA SSSSSSSSSOCIO
 //Ruta para cargar las imagenes
+//ruta eloy-->"C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
+//ruta Pablo-->C:\Users\pablo\Desktop\Trabajofinal\Trafico;
 const QString ruta = "C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 
 class Semaforo {
@@ -79,13 +81,24 @@ MainWindow::MainWindow(QWidget *parent)
     QPixmap cocherojo(ruta + "coche_rojo.png");
     QPixmap camion(ruta + "camion.png");
     QPixmap pixmapEscaladocoche=cocherojo.scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    QPixmap pixmapEscaladocamion=camion.scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QPixmap pixmapEscaladocamion=camion.scaled(300, 300, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+    //Prueba rotar imagen
+    /*
+    QTransform transform;
+    transform.rotate(180);  // Rota 180 grados
+
+    QPixmap rotada = camion.transformed(transform);
+    rotada=rotada.scaled(300, 300, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    ui->label_8->setPixmap(rotada);
+    //Funciona :)
+    */
 
     ui->label_7->setPixmap(pixmapEscaladocoche);
-    ui->label_7->setPixmap(pixmapEscaladocamion);
+    ui->label_8->setPixmap(pixmapEscaladocamion);
     //imagenes cargadas
 
-    //compo no deja usar _sleep() usamos:
+    //como no deja usar _sleep() usamos:
     //QTimer *timer = new QTimer(this);
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::cambiarSemaforo);
@@ -126,6 +139,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
 
     //Prueba tamaño coche
     ui->label_7->move(x+180,y+100); //Así el coche rojo esta carril izq
+    ui->label_8->move(x+330,y+100);
 }
 
 //Funcion q cambia los estados del semaforo
