@@ -75,11 +75,14 @@ MainWindow::MainWindow(QWidget *parent)
     //imagenes cargadas
 
 
-    //Se cargan las imagenes semaforo peatones y se escalan
+    //Se cargan las imagenes coches
     QPixmap cocherojo(ruta + "coche_rojo.png");
+    QPixmap camion(ruta + "camion.png");
     QPixmap pixmapEscaladocoche=cocherojo.scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    QPixmap pixmapEscaladocamion=camion.scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     ui->label_7->setPixmap(pixmapEscaladocoche);
+    ui->label_7->setPixmap(pixmapEscaladocamion);
     //imagenes cargadas
 
     //compo no deja usar _sleep() usamos:

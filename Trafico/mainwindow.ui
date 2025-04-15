@@ -141,6 +141,22 @@
      <pixmap>coche_rojo.png</pixmap>
     </property>
    </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>1510</x>
+      <y>40</y>
+      <width>341</width>
+      <height>581</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>camion.png</pixmap>
+    </property>
+   </widget>
    <zorder>label_6</zorder>
    <zorder>label</zorder>
    <zorder>label_2</zorder>
@@ -148,6 +164,7 @@
    <zorder>label_4</zorder>
    <zorder>label_5</zorder>
    <zorder>label_7</zorder>
+   <zorder>label_8</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -155,7 +172,7 @@
      <x>0</x>
      <y>0</y>
      <width>2243</width>
-     <height>25</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
