@@ -53,6 +53,13 @@ private:
     QTimer *timerCamion;
     int camionY;  // posición y actual
 
+    // CAMION SE PARA
+    int yPasoPeatones = 200; // Puedes ajustar según dónde esté tu paso de peatones
+
+    bool camionDetenido = false;
+    bool semaforoRojo = true;  // true = rojo, false = verde
+
+
 
 };
 #endif // MAINWINDOW_H

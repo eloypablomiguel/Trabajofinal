@@ -217,6 +217,7 @@ void MainWindow::cambiarSemaforo()
         timer->setInterval(3000);
         break;
     case 2: // Rojo
+        semaforoRojo=true;
         semaforoCoches->mostrarRojo();
         semaforoPeatones->mostrarVerde();
         timer->setInterval(6000);
@@ -263,6 +264,25 @@ void MainWindow::moverCoche()
 }
 void MainWindow::moverCamion()
 {
+    // Ver si está en la zona del paso de peatones
+    bool enZonaPaso = camionY <= yPasoPeatones + 40 && camionY >= yPasoPeatones -40;
+
+
+    if (camionDetenido) {
+        // Si estaba detenido y ahora hay luz verde, reanuda
+        if (!semaforoRojo) {
+            camionDetenido = false;
+        } else {
+            return; // sigue detenido
+        }
+    }
+
+    if (!camionDetenido && semaforoRojo && enZonaPaso) {
+        camionDetenido = true;
+        return;
+    }
+
+
     camionY -= 8;  // Se mueve hacia arriba
 
     if (camionY < -400)  {
