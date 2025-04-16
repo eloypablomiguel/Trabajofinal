@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "qlabel.h"
 #include <QMainWindow>
 #include <QTimer>
 
@@ -26,6 +27,9 @@ public:
 
 private slots:
     void cambiarSemaforo();
+    void moverCoche();
+
+
 
 protected:
     void resizeEvent(QResizeEvent *event);
@@ -40,5 +44,12 @@ private:
 
     Vehiculo *cocheRojo;
     Vehiculo *camioncito;
+
+
+    QTimer *timerCoche;
+    int cocheY;  // posición y actual
+
+
+
 };
 #endif // MAINWINDOW_H

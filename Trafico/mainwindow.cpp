@@ -145,6 +145,15 @@ MainWindow::MainWindow(QWidget *parent)
     //creamos semaforos
     semaforoCoches = new Semaforo(ui->label, ui->label_2, ui->label_3);
     semaforoPeatones = new Semaforo(ui->label_4, nullptr, ui->label_5);
+
+    //para que el coche se mueva
+    // Posición inicial del coche
+    cocheY = 0;
+
+    // Temporizador para animar el coche
+    timerCoche = new QTimer(this);
+    connect(timerCoche, &QTimer::timeout, this, &MainWindow::moverCoche);
+    timerCoche->start(50);  // 50 ms = 20 FPS aprox.
 }
 
 
@@ -231,3 +240,17 @@ void MainWindow::cambiarSemaforo()
     } //ELOY GAY
 }
 //ojjsjsjosaf
+void MainWindow::moverCoche()
+{
+    // Incrementa la posición X
+    cocheY += 10;
+
+    // Si sale de la ventana, vuelve a empezar
+    if (cocheY > height()) {
+        cocheY = -300;  // reinicia por abajo
+    }
+
+    if (cocheRojo) {
+        cocheRojo->mover(cocheRojo->label->x(), cocheY);  // y = altura deseada
+    }
+}
