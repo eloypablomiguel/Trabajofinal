@@ -28,6 +28,7 @@ public:
 private slots:
     void cambiarSemaforo();
     void moverCoche();
+    void moverCamion();
 
 
 
@@ -49,6 +50,8 @@ private:
     QTimer *timerCoche;
     int cocheY;  // posición y actual
 
+    QTimer *timerCamion;
+    int camionY;  // posición y actual
 
 
 };

@@ -147,13 +147,20 @@ MainWindow::MainWindow(QWidget *parent)
     semaforoPeatones = new Semaforo(ui->label_4, nullptr, ui->label_5);
 
     //para que el coche se mueva
-    // Posición inicial del coche
+    // Posición inicial del coche y del camion
     cocheY = 0;
+    camionY = 0;  // Comienza desde abajo
+
 
     // Temporizador para animar el coche
     timerCoche = new QTimer(this);
     connect(timerCoche, &QTimer::timeout, this, &MainWindow::moverCoche);
     timerCoche->start(50);  // 50 ms = 20 FPS aprox.
+
+    timerCamion = new QTimer(this);
+    connect(timerCamion, &QTimer::timeout, this, &MainWindow::moverCamion);
+    timerCamion->start(50);  // velocidad del camión
+
 }
 
 
@@ -253,4 +260,14 @@ void MainWindow::moverCoche()
     if (cocheRojo) {
         cocheRojo->mover(cocheRojo->label->x(), cocheY);  // y = altura deseada
     }
+}
+void MainWindow::moverCamion()
+{
+    camionY -= 8;  // Se mueve hacia arriba
+
+    if (camionY < -400)  {
+        camionY = 450;  // Vuelve a aparecer desde abajo
+    }
+
+    if (camioncito) camioncito->mover(camioncito->label->x(),camionY);
 }
