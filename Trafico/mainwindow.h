@@ -6,6 +6,7 @@
 
 
 class Semaforo;
+class Vehiculo;
 
 
 QT_BEGIN_NAMESPACE
@@ -36,5 +37,8 @@ private:
 
     Semaforo *semaforoCoches;
     Semaforo *semaforoPeatones;
+
+    Vehiculo *cocheRojo;
+    Vehiculo *camioncito;
 };
 #endif // MAINWINDOW_H

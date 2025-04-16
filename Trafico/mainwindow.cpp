@@ -37,7 +37,40 @@ public:
         rojo->setVisible(true);
     }
 };
+//MIGUEL NUEVO
+class Vehiculo {
+public:
+    QLabel *label;
+    QPixmap imagenOriginal;
 
+    Vehiculo(QLabel *lbl, const QString &rutaImagen, int ancho = 100, int alto = 100)
+        : label(lbl) {
+        imagenOriginal.load(rutaImagen);
+        QPixmap imagenEscalada = imagenOriginal.scaled(ancho, alto, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        label->setPixmap(imagenEscalada);
+        label->setVisible(true);
+    }
+
+    void mover(int x, int y) {
+        if (label) label->move(x, y);
+    }
+
+    void escalar(int ancho, int alto) {
+        if (!imagenOriginal.isNull()) {
+            QPixmap imagenEscalada = imagenOriginal.scaled(ancho, alto, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            label->setPixmap(imagenEscalada);
+        }
+    }
+
+    void ocultar() {
+        if (label) label->setVisible(false);
+    }
+
+    void mostrar() {
+        if (label) label->setVisible(true);
+    }
+};
+//ACABA MIGUEL NUEVO
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -77,12 +110,16 @@ MainWindow::MainWindow(QWidget *parent)
     ui->label_5->setPixmap(pixmapEscaladopr);
     //imagenes cargadas
 
+    //MIGUEL CLASE NUEVA
+    cocheRojo = new Vehiculo(ui->label_7, ruta + "coche_rojo.png", 250, 250);
+    camioncito = new Vehiculo(ui->label_8, ruta + "camion.png", 300, 300);
+
 
     //Se cargan las imagenes coches
-    QPixmap cocherojo(ruta + "coche_rojo.png");
-    QPixmap camion(ruta + "camion.png");
-    QPixmap pixmapEscaladocoche=cocherojo.scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    QPixmap pixmapEscaladocamion=camion.scaled(300, 300, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    //QPixmap cocherojo(ruta + "coche_rojo.png");
+    //QPixmap camion(ruta + "camion.png");
+    //QPixmap pixmapEscaladocoche=cocherojo.scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    //QPixmap pixmapEscaladocamion=camion.scaled(300, 300, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
     //Prueba rotar imagen
     /*
@@ -95,8 +132,8 @@ MainWindow::MainWindow(QWidget *parent)
     //Funciona :)
     */
 
-    ui->label_7->setPixmap(pixmapEscaladocoche);
-    ui->label_8->setPixmap(pixmapEscaladocamion);
+    //ui->label_7->setPixmap(pixmapEscaladocoche);
+    //ui->label_8->setPixmap(pixmapEscaladocamion);
     //imagenes cargadas
 
     //como no deja usar _sleep() usamos:
@@ -139,8 +176,11 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     ui->label_5->move(x+145, y+90);
 
     //Prueba tamaño coche
-    ui->label_7->move(x+180,y+100); //Así el coche rojo esta carril izq
-    ui->label_8->move(x+330,y+100);
+    //ui->label_7->move(x+180,y+100); //Así el coche rojo esta carril izq
+    //ui->label_8->move(x+330,y+100);
+    //MIGUEL NUEVA CLASE
+    if (cocheRojo) cocheRojo->mover(x+180,y+100);
+    if (camioncito) camioncito->mover(x+330,y+100);
 }
 
 //Funcion q cambia los estados del semaforo
