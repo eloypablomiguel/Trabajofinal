@@ -57,7 +57,7 @@ private:
     int yPasoPeatones = 200; // Puedes ajustar según dónde esté tu paso de peatones
 
     bool camionDetenido = false;
-    bool semaforoRojo = true;  // true = rojo, false = verde
+    bool semaforoRojo;  // true = rojo, false = verde
 
 
 

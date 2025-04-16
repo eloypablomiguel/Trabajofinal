@@ -210,6 +210,7 @@ void MainWindow::cambiarSemaforo()
         semaforoCoches->mostrarVerde();
         semaforoPeatones->mostrarRojo();
         timer->setInterval(8000);
+        semaforoRojo=false;
         break;
     case 1: // Amarillo
         semaforoCoches->mostrarAmarillo();
@@ -250,8 +251,11 @@ void MainWindow::cambiarSemaforo()
 //ojjsjsjosaf
 void MainWindow::moverCoche()
 {
-    // Incrementa la posición X
-    cocheY += 10;
+    bool enZonaPaso = cocheY <= yPasoPeatones  && cocheY >= yPasoPeatones-250 ; //revisar peatones
+    bool nomueveCoche= enZonaPaso && semaforoRojo;
+    if(nomueveCoche){
+        cocheY += 0;}
+    else{cocheY +=15;}
 
     // Si sale de la ventana, vuelve a empezar
     if (cocheY > height()) {
@@ -265,29 +269,19 @@ void MainWindow::moverCoche()
 void MainWindow::moverCamion()
 {
     // Ver si está en la zona del paso de peatones
-    bool enZonaPaso = camionY <= yPasoPeatones + 40 && camionY >= yPasoPeatones -40;
+    bool enZonaPaso = camionY <= yPasoPeatones + 200 && camionY >= yPasoPeatones ; //revisar peatones
+    bool nomueveCamion= enZonaPaso && semaforoRojo;
 
 
-    if (camionDetenido) {
-        // Si estaba detenido y ahora hay luz verde, reanuda
-        if (!semaforoRojo) {
-            camionDetenido = false;
-        } else {
-            return; // sigue detenido
+
+    if(nomueveCamion) {camionY-=0;}
+    else{ camionY -= 15;}// Se mueve hacia arriba
+
+    if (camionY <-400) {
+            camionY = 450;  // Reaparece desde abajo
         }
-    }
 
-    if (!camionDetenido && semaforoRojo && enZonaPaso) {
-        camionDetenido = true;
-        return;
-    }
+        if (camioncito) camioncito->mover(camioncito->label->x(), camionY);
 
 
-    camionY -= 8;  // Se mueve hacia arriba
-
-    if (camionY < -400)  {
-        camionY = 450;  // Vuelve a aparecer desde abajo
-    }
-
-    if (camioncito) camioncito->mover(camioncito->label->x(),camionY);
 }
