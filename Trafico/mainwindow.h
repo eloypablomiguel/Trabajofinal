@@ -29,6 +29,7 @@ private slots:
     void cambiarSemaforo();
     void moverCoche();
     void moverCamion();
+    void moverPeaton();
 
 
 
@@ -52,6 +53,10 @@ private:
 
     QTimer *timerCamion;
     int camionY;  // posición y actual
+
+    QTimer *timerPeaton;
+    int peatonX; //posicion x actual peaton
+
 
     // CAMION SE PARA
     int yPasoPeatones = 200; // Puedes ajustar según dónde esté tu paso de peatones

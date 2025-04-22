@@ -8,7 +8,7 @@
 //ruta eloy-->"C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 //ruta Pablo-->"C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
 //miguel -> C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\;
-const QString ruta = "C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\";
+const QString ruta = "C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
 
 class Semaforo {
 public:
@@ -72,6 +72,7 @@ public:
 };
 //ACABA MIGUEL NUEVO
 
+//CONSTRUCTOR
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -119,7 +120,13 @@ MainWindow::MainWindow(QWidget *parent)
     QPixmap peaton(ruta + "foto_socio.png");
     QPixmap pixmapEscaladopeaton=peaton.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     ui->label_11->setPixmap(pixmapEscaladopeaton);
+    peatonX = ui->label_11->x(); // o valor inicial fijo
+    timerPeaton = new QTimer(this);
+    connect(timerPeaton, &QTimer::timeout, this, &MainWindow::moverPeaton);
+    timerPeaton->start(50);
+
     //Acaba prueba peatones
+
     //Se cargan las imagenes coches
     //QPixmap cocherojo(ruta + "coche_rojo.png");
     //QPixmap camion(ruta + "camion.png");
@@ -154,8 +161,8 @@ MainWindow::MainWindow(QWidget *parent)
     //para que el coche se mueva
     // Posición inicial del coche y del camion
     cocheY = 0;
-    camionY = 0;  // Comienza desde abajo
-
+    camionY = 0;    // Comienza desde abajo
+    peatonX=500;
 
     // Temporizador para animar el coche
     timerCoche = new QTimer(this);
@@ -197,7 +204,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     ui->label_5->move(x+145, y+90);
 
     //Prueba colocar peaton
-    ui->label_11->move(x+140, y+125);
+    ui->label_11->move(x+600, y+125);
 
     //Prueba tamaño coche
     //ui->label_7->move(x+180,y+100); //Así el coche rojo esta carril izq
@@ -292,4 +299,17 @@ void MainWindow::moverCamion()
         if (camioncito) camioncito->mover(camioncito->label->x(), camionY);
 
 
+}
+void MainWindow::moverPeaton() {
+    if (!semaforoRojo) return;  // Solo cruza cuando está verde para peatones
+
+    peatonX -= 5;  // Movimiento hacia la izquierda
+
+    if (peatonX < 400) {
+        peatonX = this->width()-420;  // Reaparece por la derecha
+    }
+
+    ui->label_11->move(peatonX, ui->label_11->y());
+    //FALTA PONER CONDICIONES DE QUE PARA LOS COCHES SI CRUZA EL PEATON NO AVANCEN Y QUE CUANDO QUEDE POCO PARA PONERSE EN
+    //ROJO EL SEMAF DE PEATONES QUE VAYA MUCHO MAS RAPIDO.
 }
