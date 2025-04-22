@@ -2,7 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QTimer>
 
-
+//eeeeloy
 //ESTO ES UNA PRUEBA PARA VER SI FUNCIONA, HOLA SSSSSSSSSOCIO
 //Ruta para cargar las imagenes
 //ruta eloy-->"C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
