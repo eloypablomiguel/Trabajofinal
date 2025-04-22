@@ -115,6 +115,11 @@ MainWindow::MainWindow(QWidget *parent)
     camioncito = new Vehiculo(ui->label_8, ruta + "camion.png", 300, 300);
 
 
+    //Prueba peatones
+    QPixmap peaton(ruta + "foto_socio.png");
+    QPixmap pixmapEscaladopeaton=peaton.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    ui->label_11->setPixmap(pixmapEscaladopeaton);
+    //Acaba prueba peatones
     //Se cargan las imagenes coches
     //QPixmap cocherojo(ruta + "coche_rojo.png");
     //QPixmap camion(ruta + "camion.png");
@@ -191,6 +196,9 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     ui->label_4->move(x+145, y+90);
     ui->label_5->move(x+145, y+90);
 
+    //Prueba colocar peaton
+    ui->label_11->move(x+140, y+125);
+
     //Prueba tamaño coche
     //ui->label_7->move(x+180,y+100); //Así el coche rojo esta carril izq
     //ui->label_8->move(x+330,y+100);
@@ -223,7 +231,7 @@ void MainWindow::cambiarSemaforo()
         semaforoPeatones->mostrarVerde();
         timer->setInterval(6000);
 
-        /*int parpa = 0;
+        int parpa = 0;
         //no me sale q parpadee
         timerparpadeo = new QTimer(this);
         connect(timerparpadeo, &QTimer::timeout, [this, &parpa]() {
@@ -240,7 +248,7 @@ void MainWindow::cambiarSemaforo()
 
 
 
-        timerparpadeo->start(500);
+        timerparpadeo->start(500);/*
         semaforoPeatones->mostrarRojo();
         timer->setInterval(500);
         semaforoPeatones->mostrarVerde();

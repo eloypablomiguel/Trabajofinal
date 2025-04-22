@@ -192,6 +192,22 @@
      <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="label_11">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>1350</y>
+      <width>331</width>
+      <height>571</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>foto_socio.png</pixmap>
+    </property>
+   </widget>
    <zorder>label_6</zorder>
    <zorder>label</zorder>
    <zorder>label_2</zorder>
@@ -202,6 +218,7 @@
    <zorder>label_8</zorder>
    <zorder>label_9</zorder>
    <zorder>label_10</zorder>
+   <zorder>label_11</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
