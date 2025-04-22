@@ -173,6 +173,25 @@
      <pixmap>paso_peatones.png</pixmap>
     </property>
    </widget>
+   <widget class="QLabel" name="label_10">
+    <property name="geometry">
+     <rect>
+      <x>-20</x>
+      <y>-140</y>
+      <width>1111</width>
+      <height>1541</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>calle.png</pixmap>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
+    </property>
+   </widget>
    <zorder>label_6</zorder>
    <zorder>label</zorder>
    <zorder>label_2</zorder>
@@ -182,6 +201,7 @@
    <zorder>label_7</zorder>
    <zorder>label_8</zorder>
    <zorder>label_9</zorder>
+   <zorder>label_10</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -189,7 +209,7 @@
      <x>0</x>
      <y>0</y>
      <width>2243</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
