@@ -231,7 +231,7 @@ void MainWindow::cambiarSemaforo()
         semaforoPeatones->mostrarVerde();
         timer->setInterval(6000);
 
-        int parpa = 0;
+        /*nt parpa = 0;
         //no me sale q parpadee
         timerparpadeo = new QTimer(this);
         connect(timerparpadeo, &QTimer::timeout, [this, &parpa]() {
