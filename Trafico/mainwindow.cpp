@@ -8,7 +8,7 @@
 //ruta eloy-->"C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 //ruta Pablo-->"C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
 //miguel -> C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\;
-const QString ruta = "C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
+const QString ruta = "C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\";
 
 class Semaforo {
 public:
@@ -204,7 +204,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     ui->label_5->move(x+145, y+90);
 
     //Prueba colocar peaton
-    ui->label_11->move(x+600, y+125);
+    ui->label_11->move(x+550, y+125);
 
     //Prueba tamaño coche
     //ui->label_7->move(x+180,y+100); //Así el coche rojo esta carril izq
@@ -305,7 +305,7 @@ void MainWindow::moverPeaton() {
 
     peatonX -= 5;  // Movimiento hacia la izquierda
 
-    if (peatonX < 400) {
+    if (peatonX < 450) {
         peatonX = this->width()-420;  // Reaparece por la derecha
     }
 
