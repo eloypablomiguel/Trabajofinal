@@ -65,6 +65,13 @@ private:
     bool semaforoRojo;  // true = rojo, false = verde
     bool cruzandoPeaton;
 
+    int velocidadSocio;
+
+    //el paso de peatones es 400px de alto y 500 de ancho
+    // la calle es de 896px de ancho y 1241 de alto
+    //y el paso esta en el px 802 arriba y el 415 abajo
+    //a la izq en 270 px y a la derecha en 750
+
 
 };
 #endif // MAINWINDOW_H
