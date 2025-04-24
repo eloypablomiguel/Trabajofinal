@@ -65,6 +65,8 @@ private:
     bool semaforoRojo;  // true = rojo, false = verde
     bool cruzandoPeaton;
 
+    int velocidadSocio;
+
 
 };
 #endif // MAINWINDOW_H
