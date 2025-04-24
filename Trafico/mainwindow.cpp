@@ -9,7 +9,7 @@
 //ruta eloy-->"C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 //ruta Pablo-->"C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
 //miguel -> C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\;
-const QString ruta = "C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
+const QString ruta = "C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\";
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -18,9 +18,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     //Se cargan las imagenes semaforo coches y se escalan
-    QPixmap verde(ruta + "semaforo_verde.jpg");
-    QPixmap amarillo(ruta + "semaforo_amarillo.jpg");
-    QPixmap rojo(ruta + "semaforo_rojo.jpg");
+    QPixmap verde(ruta + "semaforo_verde.png");
+    QPixmap amarillo(ruta + "semaforo_amarillo.png");
+    QPixmap rojo(ruta + "semaforo_rojo.png");
     QPixmap pixmapEscalador = rojo.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     QPixmap pixmapEscaladoa = amarillo.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     QPixmap pixmapEscaladov = verde.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -40,8 +40,8 @@ MainWindow::MainWindow(QWidget *parent)
     //imagen cargada
 
     //Se cargan las imagenes semaforo peatones y se escalan
-    QPixmap verdep(ruta + "Semaforopeaton_verde.jpg");
-    QPixmap rojop(ruta + "Semaforopeaton_rojo.jpg");
+    QPixmap verdep(ruta + "Semaforopeaton_verde.png");
+    QPixmap rojop(ruta + "Semaforopeaton_rojo.png");
     QPixmap pixmapEscaladopr = rojop.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     QPixmap pixmapEscaladopv = verdep.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
 

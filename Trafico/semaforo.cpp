@@ -1,7 +1,6 @@
 #include "semaforo.h"
 
-Semaforo::Semaforo(QLabel *v, QLabel *a, QLabel *r)
-    : verde(v), amarillo(a), rojo(r) {}
+Semaforo::Semaforo(QLabel *v, QLabel *a, QLabel *r) : verde(v), amarillo(a), rojo(r) {}
 
 void Semaforo::mostrarVerde() {
     if (verde) verde->setVisible(true);

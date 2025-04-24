@@ -21,4 +21,4 @@ protected:
     QPixmap imagenOriginal;
 };
 
-#endif
+#endif // VEHICULO_H
