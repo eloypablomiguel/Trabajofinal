@@ -3,8 +3,7 @@
 #include <QTimer>
 #include <vehiculo.h>
 #include <semaforo.h>
-//eeeeloy
-//ESTO ES UNA PRUEBA PARA VER SI FUNCIONA, HOLA SSSSSSSSSOCIO
+
 //Ruta para cargar las imagenes
 //ruta eloy-->"C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 //ruta Pablo-->"C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
@@ -63,31 +62,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timerPeaton, &QTimer::timeout, this, &MainWindow::moverPeaton);
     timerPeaton->start(50);
 
-    //Acaba prueba peatones
-
-    //Se cargan las imagenes coches
-    //QPixmap cocherojo(ruta + "coche_rojo.png");
-    //QPixmap camion(ruta + "camion.png");
-    //QPixmap pixmapEscaladocoche=cocherojo.scaled(250, 250, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    //QPixmap pixmapEscaladocamion=camion.scaled(300, 300, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-
-    //Prueba rotar imagen
-    /*
-    QTransform transform;
-    transform.rotate(180);  // Rota 180 grados
-
-    QPixmap rotada = camion.transformed(transform);
-    rotada=rotada.scaled(300, 300, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    ui->label_8->setPixmap(rotada);
-    //Funciona :)
-    */
-
-    //ui->label_7->setPixmap(pixmapEscaladocoche);
-    //ui->label_8->setPixmap(pixmapEscaladocamion);
-    //imagenes cargadas
-
-    //como no deja usar _sleep() usamos:
-    //QTimer *timer = new QTimer(this);
+//Timer semaforo
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::cambiarSemaforo);
     timer->start();
@@ -177,33 +152,9 @@ void MainWindow::cambiarSemaforo()
         semaforoCoches->mostrarRojo();
         semaforoPeatones->mostrarVerde();
         timer->setInterval(6000);
-
-        /*nt parpa = 0;
-        //no me sale q parpadee
-        timerparpadeo = new QTimer(this);
-        connect(timerparpadeo, &QTimer::timeout, [this, &parpa]() {
-            static bool estadoParpadeo = false;
-            if (estadoParpadeo) {
-                semaforoPeatones->mostrarRojo();
-                parpa=parpa+1;
-            } else {
-                semaforoPeatones->mostrarVerde();
-            }
-            if (parpa==2) timerparpadeo->stop();
-            estadoParpadeo = !estadoParpadeo;  // Alterna el estado
-        });
-
-
-
-        timerparpadeo->start(500);/*
-        semaforoPeatones->mostrarRojo();
-        timer->setInterval(500);
-        semaforoPeatones->mostrarVerde();
-        timer->setInterval(500);*/
         break;
-    } //ELOY GAY
+    }
 }
-//ojjsjsjosaf
 void MainWindow::moverCoche()
 {
     bool enZonaPaso = cocheY <= yPasoPeatones  && cocheY >= yPasoPeatones-250 ; //revisar peatones
