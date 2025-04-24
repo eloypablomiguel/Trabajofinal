@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QTimer>
-
+#include <vehiculo.h>
+#include <semaforo.h>
 //eeeeloy
 //ESTO ES UNA PRUEBA PARA VER SI FUNCIONA, HOLA SSSSSSSSSOCIO
 //Ruta para cargar las imagenes
@@ -10,69 +11,6 @@
 //miguel -> C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\;
 const QString ruta = "C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\";
 
-class Semaforo {
-public:
-    QLabel *verde;
-    QLabel *amarillo;
-    QLabel *rojo;
-
-    Semaforo(QLabel *v, QLabel *a, QLabel *r)
-        : verde(v), amarillo(a), rojo(r) {}
-
-    void mostrarVerde() {
-        verde->setVisible(true);
-        if (amarillo) amarillo->setVisible(false); //crashea sin if
-        rojo->setVisible(false);
-    }
-
-    void mostrarAmarillo() {
-        verde->setVisible(false);
-        if (amarillo) amarillo->setVisible(true);  //crashea sin if
-        rojo->setVisible(false);
-    }
-
-    void mostrarRojo() {
-        verde->setVisible(false);
-        if (amarillo) amarillo->setVisible(false);  //crashea sin if
-        rojo->setVisible(true);
-    }
-};
-//MIGUEL NUEVO
-class Vehiculo {
-public:
-    QLabel *label;
-    QPixmap imagenOriginal;
-
-    Vehiculo(QLabel *lbl, const QString &rutaImagen, int ancho = 100, int alto = 100)
-        : label(lbl) {
-        imagenOriginal.load(rutaImagen);
-        QPixmap imagenEscalada = imagenOriginal.scaled(ancho, alto, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-        label->setPixmap(imagenEscalada);
-        label->setVisible(true);
-    }
-
-    void mover(int x, int y) {
-        if (label) label->move(x, y);
-    }
-
-    void escalar(int ancho, int alto) {
-        if (!imagenOriginal.isNull()) {
-            QPixmap imagenEscalada = imagenOriginal.scaled(ancho, alto, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-            label->setPixmap(imagenEscalada);
-        }
-    }
-
-    void ocultar() {
-        if (label) label->setVisible(false);
-    }
-
-    void mostrar() {
-        if (label) label->setVisible(true);
-    }
-};
-//ACABA MIGUEL NUEVO
-
-//CONSTRUCTOR
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)

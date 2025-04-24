@@ -10,10 +10,14 @@ CONFIG += c++17
 
 SOURCES += \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    semaforo.cpp \
+    vehiculo.cpp
 
 HEADERS += \
-    mainwindow.h
+    mainwindow.h \
+    semaforo.h \
+    vehiculo.h
 
 FORMS += \
     mainwindow.ui
