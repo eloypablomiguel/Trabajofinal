@@ -9,7 +9,7 @@
 //ruta eloy-->"C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 //ruta Pablo-->"C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
 //miguel -> C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\;
-const QString ruta = "C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\";
+const QString ruta = "C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -57,8 +57,8 @@ MainWindow::MainWindow(QWidget *parent)
     //Prueba peatones
     QPixmap peaton(ruta + "foto_socio.png");
     QPixmap pixmapEscaladopeaton=peaton.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    ui->label_11->setPixmap(pixmapEscaladopeaton);
-    peatonX = ui->label_11->x(); // o valor inicial fijo
+    ui->peaton_socio->setPixmap(pixmapEscaladopeaton);
+    peatonX = ui->peaton_socio->x(); // o valor inicial fijo
     timerPeaton = new QTimer(this);
     connect(timerPeaton, &QTimer::timeout, this, &MainWindow::moverPeaton);
     timerPeaton->start(50);
@@ -142,7 +142,7 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     ui->label_5->move(x+145, y+90);
 
     //Prueba colocar peaton
-    ui->label_11->move(x+550, y+125);
+    ui->peaton_socio->move(x+550, y+125);
 
     //Prueba tamaño coche
     //ui->label_7->move(x+180,y+100); //Así el coche rojo esta carril izq
@@ -207,7 +207,7 @@ void MainWindow::cambiarSemaforo()
 void MainWindow::moverCoche()
 {
     bool enZonaPaso = cocheY <= yPasoPeatones  && cocheY >= yPasoPeatones-250 ; //revisar peatones
-    bool nomueveCoche= enZonaPaso && semaforoRojo;
+    bool nomueveCoche= enZonaPaso && (semaforoRojo || cruzandoPeaton);
     if(nomueveCoche){
         cocheY += 0;}
     else{cocheY +=15;}
@@ -225,7 +225,7 @@ void MainWindow::moverCamion()
 {
     // Ver si está en la zona del paso de peatones
     bool enZonaPaso = camionY <= yPasoPeatones + 200 && camionY >= yPasoPeatones ; //revisar peatones
-    bool nomueveCamion= enZonaPaso && semaforoRojo;
+    bool nomueveCamion= enZonaPaso && (semaforoRojo || cruzandoPeaton);
 
 
 
@@ -241,15 +241,23 @@ void MainWindow::moverCamion()
 
 }
 void MainWindow::moverPeaton() {
-    if (!semaforoRojo && (peatonX<500 || peatonX>this->width()-420) ) return;  // Solo cruza cuando está verde para peatones
-
-    peatonX -= 5;  // Movimiento hacia la izquierda
-
-    if (peatonX < 450) {
-        peatonX = this->width()-420;  // Reaparece por la derecha
+    if (!cruzandoPeaton && !semaforoRojo && (peatonX > 500 && peatonX < this->width() - 520)) {
+        return;  // Solo puede empezar a cruzar cuando hay semáforo rojo (para coches)
     }
 
-    ui->label_11->move(peatonX, ui->label_11->y());
-    //FALTA PONER CONDICIONES DE QUE PARA LOS COCHES SI CRUZA EL PEATON NO AVANCEN Y QUE CUANDO QUEDE POCO PARA PONERSE EN
-    //ROJO EL SEMAF DE PEATONES QUE VAYA MUCHO MAS RAPIDO.
+    // Si el peatón está dentro del paso de cebra, marcamos que está cruzando
+    if (semaforoRojo && peatonX < this->width() - 520 && peatonX > 500) {
+        cruzandoPeaton = true;
+    }
+
+    peatonX -= 8;
+    qDebug() << "PeatonX:" << peatonX;
+
+    // Si ya ha cruzado, lo reinicias y desactivas el cruce
+    if (peatonX < 450) {
+        peatonX = this->width() - 420;
+        cruzandoPeaton = false;
+    }
+
+    ui->peaton_socio->move(peatonX, ui->peaton_socio->y());
 }

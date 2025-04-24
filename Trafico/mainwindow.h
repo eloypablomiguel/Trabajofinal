@@ -63,7 +63,7 @@ private:
 
     bool camionDetenido = false;
     bool semaforoRojo;  // true = rojo, false = verde
-
+    bool cruzandoPeaton;
 
 
 };
