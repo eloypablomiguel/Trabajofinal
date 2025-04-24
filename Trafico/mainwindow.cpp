@@ -212,6 +212,8 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     //MIGUEL NUEVA CLASE
     if (cocheRojo) cocheRojo->mover(x+180,y+100);
     if (camioncito) camioncito->mover(x+330,y+100);
+
+
 }
 
 //Funcion q cambia los estados del semaforo
@@ -301,7 +303,7 @@ void MainWindow::moverCamion()
 
 }
 void MainWindow::moverPeaton() {
-    if (!semaforoRojo) return;  // Solo cruza cuando está verde para peatones
+    if (!semaforoRojo && (peatonX<500 || peatonX>this->width()-420) ) return;  // Solo cruza cuando está verde para peatones
 
     peatonX -= 5;  // Movimiento hacia la izquierda
 
