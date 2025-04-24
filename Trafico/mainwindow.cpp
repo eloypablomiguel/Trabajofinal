@@ -3,13 +3,12 @@
 #include <QTimer>
 #include <vehiculo.h>
 #include <semaforo.h>
-#include <QRandomGenerator>
 
 //Ruta para cargar las imagenes
 //ruta eloy-->"C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 //ruta Pablo-->"C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
 //miguel -> C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\;
-const QString ruta = "C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
+const QString ruta = "C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\";
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -86,9 +85,6 @@ MainWindow::MainWindow(QWidget *parent)
     timerCamion = new QTimer(this);
     connect(timerCamion, &QTimer::timeout, this, &MainWindow::moverCamion);
     timerCamion->start(50);  // velocidad del camión
-
-
-
 
 }
 
@@ -205,22 +201,14 @@ void MainWindow::moverPeaton() {
         cruzandoPeaton = true;
     }
 
-    peatonX -= velocidadSocio;
-
-
-    // Si ya ha cruzado desactivo el cruce
-    if (peatonX < 500 || (peatonX > this->width() - 520)) {
-        cruzandoPeaton = false;
-
-    }
+    peatonX -= 8;
+    qDebug() << "PeatonX:" << peatonX;
 
     // Si ya ha cruzado, lo reinicias y desactivas el cruce
     if (peatonX < 450) {
         peatonX = this->width() - 420;
-        velocidadSocio = QRandomGenerator::global()->bounded(3, 10);
-
+        cruzandoPeaton = false;
     }
-
 
     ui->peaton_socio->move(peatonX, ui->peaton_socio->y());
 }
