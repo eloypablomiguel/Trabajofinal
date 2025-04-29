@@ -8,7 +8,7 @@
 //Ruta para cargar las imagenes
 //ruta eloy-->"C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 //ruta Pablo-->"C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
-//miguel -> C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\;
+//miguel -> C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\";
 const QString ruta = "C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
 
 MainWindow::MainWindow(QWidget *parent)
@@ -49,10 +49,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->label_5->setPixmap(pixmapEscaladopr);
     //imagenes cargadas
 
-    //MIGUEL CLASE NUEVA
-    cocheRojo = new Vehiculo(ui->label_7, ruta + "coche_rojo.png", 250, 250);
-    camioncito = new Vehiculo(ui->label_8, ruta + "camion.png", 300, 300);
-
+    // MIGUEL CLASE NUEVA CON HERENCIA
+    cocheRojo = new Coche(ui->label_7, ruta + "coche_rojo.png", 250, 250);
+    camioncito = new Camion(ui->label_8, ruta + "camion.png", 300, 300);
 
     //Prueba peatones
     QPixmap peaton(ruta + "foto_socio.png");
@@ -63,7 +62,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timerPeaton, &QTimer::timeout, this, &MainWindow::moverPeaton);
     timerPeaton->start(50);
 
-//Timer semaforo
+    //Timer semaforo
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &MainWindow::cambiarSemaforo);
     timer->start();
@@ -72,29 +71,25 @@ MainWindow::MainWindow(QWidget *parent)
     semaforoCoches = new Semaforo(ui->label, ui->label_2, ui->label_3);
     semaforoPeatones = new Semaforo(ui->label_4, nullptr, ui->label_5);
 
-    //para que el coche se mueva
-    // Posición inicial del coche y del camion
+    //para que los coches se muevan
+    // Posición inicial del coche y del camion (ahora se gestiona en la creación del Vehiculo)
     cocheY = 0;
-    camionY = 0;    // Comienza desde abajo
+    camionY = 0;     // Comienza desde abajo
     peatonX=500;
 
-    // Temporizador para animar el coche
-    timerCoche = new QTimer(this);
-    connect(timerCoche, &QTimer::timeout, this, &MainWindow::moverCoche);
-    timerCoche->start(50);  // 50 ms = 20 FPS aprox.
-
-    timerCamion = new QTimer(this);
-    connect(timerCamion, &QTimer::timeout, this, &MainWindow::moverCamion);
-    timerCamion->start(50);  // velocidad del camión
-
+    // Temporizador para animar los coches (ahora es uno solo)
+    timerVehiculos = new QTimer(this);
+    connect(timerVehiculos, &QTimer::timeout, this, &MainWindow::moverVehiculos); // Conectamos a la nueva función
+    timerVehiculos->start(50);  // 50 ms = 20 FPS aprox.
 
     //Velocidad Random incial Socio
     velocidadSocio = QRandomGenerator::global()->bounded(2, 10);
 }
 
-
 MainWindow::~MainWindow()
 {
+    delete cocheRojo;
+    delete camioncito;
     delete ui;
 }
 
@@ -129,8 +124,6 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     //MIGUEL NUEVA CLASE
     if (cocheRojo) cocheRojo->mover(x+180,y+100);
     if (camioncito) camioncito->mover(x+330,y+100);
-
-
 }
 
 //Funcion q cambia los estados del semaforo
@@ -159,42 +152,40 @@ void MainWindow::cambiarSemaforo()
         break;
     }
 }
-void MainWindow::moverCoche()
+
+// Función para mover todos los vehículos
+void MainWindow::moverVehiculos()
 {
-    bool enZonaPaso = cocheY <= yPasoPeatones  && cocheY >= yPasoPeatones-250 ; //revisar peatones
-    bool nomueveCoche= enZonaPaso && (semaforoRojo || cruzandoPeaton);
-    if(nomueveCoche){
-        cocheY += 0;}
-    else{cocheY +=15;}
+    int velocidad = 15;
 
-    // Si sale de la ventana, vuelve a empezar
-    if (cocheY > height()) {
-        cocheY = -300;  // reinicia por abajo
-    }
-
+    // Mover el coche rojo
     if (cocheRojo) {
-        cocheRojo->mover(cocheRojo->label->x(), cocheY);  // y = altura deseada
+        bool enZonaPasoCoche = cocheRojo->label->y() <= yPasoPeatones  && cocheRojo->label->y() >= yPasoPeatones-250 ;
+        bool nomueveCoche= enZonaPasoCoche && (semaforoRojo || cruzandoPeaton);
+        if(nomueveCoche){
+            cocheY += 0;}
+        else{cocheY += velocidad;}
+
+        if (cocheY > height()) {
+            cocheY = -300;
+        }
+        cocheRojo->mover(cocheRojo->label->x(), cocheY);
+    }
+
+    // Mover el camión
+    if (camioncito) {
+        bool enZonaPasoCamion = camioncito->label->y() <= yPasoPeatones + 200 && camioncito->label->y() >= yPasoPeatones ;
+        bool nomueveCamion= enZonaPasoCamion && (semaforoRojo || cruzandoPeaton);
+        if(nomueveCamion) {camionY-=0;}
+        else{ camionY -= velocidad;}
+
+        if (camionY <-400) {
+            camionY = 450;
+        }
+        camioncito->mover(camioncito->label->x(), camionY);
     }
 }
-void MainWindow::moverCamion()
-{
-    // Ver si está en la zona del paso de peatones
-    bool enZonaPaso = camionY <= yPasoPeatones + 200 && camionY >= yPasoPeatones ; //revisar peatones
-    bool nomueveCamion= enZonaPaso && (semaforoRojo || cruzandoPeaton);
 
-
-
-    if(nomueveCamion) {camionY-=0;}
-    else{ camionY -= 15;}// Se mueve hacia arriba
-
-    if (camionY <-400) {
-            camionY = 450;  // Reaparece desde abajo
-        }
-
-        if (camioncito) camioncito->mover(camioncito->label->x(), camionY);
-
-
-}
 void MainWindow::moverPeaton() {
     if (!cruzandoPeaton && !semaforoRojo && (peatonX > 500 && peatonX < this->width() - 520)) {
         return;  // Solo puede empezar a cruzar cuando hay semáforo rojo (para coches)

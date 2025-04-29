@@ -1,6 +1,6 @@
 #include "vehiculo.h"
 
-Vehiculo::Vehiculo(QLabel *lbl, const QString &rutaImagen, int ancho, int alto)
+VehiculoBase::VehiculoBase(QLabel *lbl, const QString &rutaImagen, int ancho, int alto)
     : label(lbl) {
     imagenOriginal.load(rutaImagen);
     QPixmap imagenEscalada = imagenOriginal.scaled(ancho, alto, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -8,21 +8,30 @@ Vehiculo::Vehiculo(QLabel *lbl, const QString &rutaImagen, int ancho, int alto)
     label->setVisible(true);
 }
 
-void Vehiculo::mover(int x, int y) {
+void VehiculoBase::mover(int x, int y) {
     if (label) label->move(x, y);
 }
 
-void Vehiculo::escalar(int ancho, int alto) {
+void VehiculoBase::escalar(int ancho, int alto) {
     if (!imagenOriginal.isNull()) {
         QPixmap imagenEscalada = imagenOriginal.scaled(ancho, alto, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         label->setPixmap(imagenEscalada);
     }
 }
 
-void Vehiculo::ocultar() {
+void VehiculoBase::ocultar() {
     if (label) label->setVisible(false);
 }
 
-void Vehiculo::mostrar() {
+void VehiculoBase::mostrar() {
     if (label) label->setVisible(true);
+}
+
+void Coche::mover(int x, int y) {
+    VehiculoBase::mover(x, y);
+    // Aquí podrías añadir un comportamiento de movimiento específico para el coche si lo tuvieras
+}
+
+void Camion::mover(int x, int y) {
+    VehiculoBase::mover(x, y);
 }

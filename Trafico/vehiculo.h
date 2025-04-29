@@ -5,20 +5,36 @@
 #include <QPixmap>
 #include <QString>
 
-class Vehiculo {
+class VehiculoBase {
 public:
-    Vehiculo(QLabel *lbl, const QString &rutaImagen, int ancho = 100, int alto = 100);
-    virtual ~Vehiculo() = default;
+    VehiculoBase(QLabel *lbl, const QString &rutaImagen, int ancho = 100, int alto = 100);
+    virtual ~VehiculoBase() = default;
 
-    void mover(int x, int y);
-    void escalar(int ancho, int alto);
-    void ocultar();
-    void mostrar();
+    virtual void mover(int x, int y);
+    virtual void escalar(int ancho, int alto);
+    virtual void ocultar();
+    virtual void mostrar();
 
     QLabel *label;
 
 protected:
     QPixmap imagenOriginal;
+};
+
+class Coche : public VehiculoBase {
+public:
+    Coche(QLabel *lbl, const QString &rutaImagen, int ancho = 100, int alto = 100)
+        : VehiculoBase(lbl, rutaImagen, ancho, alto) {}
+
+    void mover(int x, int y) override;
+};
+
+class Camion : public VehiculoBase {
+public:
+    Camion(QLabel *lbl, const QString &rutaImagen, int ancho = 100, int alto = 100)
+        : VehiculoBase(lbl, rutaImagen, ancho, alto) {}
+
+    void mover(int x, int y) override;
 };
 
 #endif // VEHICULO_H

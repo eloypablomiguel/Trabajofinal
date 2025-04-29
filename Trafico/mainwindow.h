@@ -5,17 +5,16 @@
 #include <QMainWindow>
 #include <QTimer>
 
-
+class VehiculoBase; // Declaración adelantada
+class Coche;
+class Camion;
 class Semaforo;
-class Vehiculo;
-
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
 }
 QT_END_NAMESPACE
-
 
 class MainWindow : public QMainWindow
 {
@@ -27,11 +26,8 @@ public:
 
 private slots:
     void cambiarSemaforo();
-    void moverCoche();
-    void moverCamion();
+    void moverVehiculos(); // Función para mover todos los vehículos
     void moverPeaton();
-
-
 
 protected:
     void resizeEvent(QResizeEvent *event);
@@ -44,19 +40,15 @@ private:
     Semaforo *semaforoCoches;
     Semaforo *semaforoPeatones;
 
-    Vehiculo *cocheRojo;
-    Vehiculo *camioncito;
+    VehiculoBase *cocheRojo;
+    VehiculoBase *camioncito;
 
-
-    QTimer *timerCoche;
-    int cocheY;  // posición y actual
-
-    QTimer *timerCamion;
-    int camionY;  // posición y actual
+    QTimer *timerVehiculos; // Un único timer para mover los vehículos
+    int cocheY;  // Posición y actual del coche
+    int camionY; // Posición y actual del camión
 
     QTimer *timerPeaton;
     int peatonX; //posicion x actual peaton
-
 
     // CAMION SE PARA
     int yPasoPeatones = 200; // Puedes ajustar según dónde esté tu paso de peatones
@@ -66,7 +58,5 @@ private:
     bool cruzandoPeaton;
 
     int velocidadSocio;
-
-
 };
 #endif // MAINWINDOW_H
