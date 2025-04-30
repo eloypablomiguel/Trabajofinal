@@ -9,7 +9,7 @@
 //ruta eloy-->"C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 //ruta Pablo-->"C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
 //miguel -> C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\";
-const QString ruta = "C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\";
+const QString ruta = "C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -199,8 +199,12 @@ void MainWindow::moverPeaton() {
     peatonX -= velocidadSocio;
     qDebug() << "PeatonX:" << peatonX;
 
+    //acelera si se pone en rojo los peatones
+    if (cruzandoPeaton && !semaforoRojo){
+        velocidadSocio+=2;
+    }
     // Si ya ha cruzado, lo reinicias y desactivas el cruce
-    if (peatonX < 450) {
+    if (peatonX < 500) {
         peatonX = this->width() - 420;
         cruzandoPeaton = false;
         velocidadSocio = QRandomGenerator::global()->bounded(2, 10); // nueva velocidad aleatoria
