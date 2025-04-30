@@ -160,7 +160,7 @@ void MainWindow::moverVehiculos()
 
     // Mover el coche rojo
     if (cocheRojo) {
-        bool enZonaPasoCoche = cocheRojo->label->y() <= yPasoPeatones  && cocheRojo->label->y() >= yPasoPeatones-250 ;
+        bool enZonaPasoCoche = cocheRojo->label->y() <= yPasoPeatones-150  && cocheRojo->label->y() >= yPasoPeatones-250 ;
         bool nomueveCoche= enZonaPasoCoche && (semaforoRojo || cruzandoPeaton);
         if(nomueveCoche){
             cocheY += 0;}
