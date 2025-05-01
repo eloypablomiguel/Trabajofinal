@@ -208,6 +208,22 @@
      <pixmap>foto_socio.png</pixmap>
     </property>
    </widget>
+   <widget class="QLabel" name="peaton_miguel">
+    <property name="geometry">
+     <rect>
+      <x>220</x>
+      <y>370</y>
+      <width>1011</width>
+      <height>1581</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>foto_miguel.png</pixmap>
+    </property>
+   </widget>
    <zorder>label_6</zorder>
    <zorder>label</zorder>
    <zorder>label_2</zorder>
@@ -219,6 +235,7 @@
    <zorder>label_9</zorder>
    <zorder>label_10</zorder>
    <zorder>peaton_socio</zorder>
+   <zorder>peaton_miguel</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -226,7 +243,7 @@
      <x>0</x>
      <y>0</y>
      <width>2243</width>
-     <height>22</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>

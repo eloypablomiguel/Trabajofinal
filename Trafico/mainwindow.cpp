@@ -64,11 +64,25 @@ MainWindow::MainWindow(QWidget *parent)
     connect(timerPeaton, &QTimer::timeout, this, &MainWindow::moverPeaton);
     timerPeaton->start(50);
 */
-    Peaton* nuevoPeaton = new Peaton(ui->peaton_socio, ruta + "foto_socio.png",100,100);
+    Peaton* nuevoPeaton = new Peaton(ui->peaton_socio, ruta + "foto_socio.png",100,100,"socio");
     peatones.push_back(nuevoPeaton);
+
+    Peaton* nuevoPeaton2 = new Peaton(ui->peaton_miguel, ruta + "foto_miguel.png",100,100, "miguel");
+    peatones.push_back(nuevoPeaton2);
+
+    ui->peaton_miguel->resize(100, 100);  // Tamaño visible
+    //ui->peaton_miguel->setVisible(true);  // Mostrarlo
+    //ui->peaton_miguel->raise();           // Asegura que está por delante
+    //ui->peaton_miguel->move(500, yPasoPeatones);  // Posición inicial
+
     timerPeaton = new QTimer(this);
     connect(timerPeaton, &QTimer::timeout, this, &MainWindow::moverPeaton);
     timerPeaton->start(50);
+
+    //ui->peaton_miguel->resize(100, 100);  // Asegura tamaño
+    //ui->peaton_miguel->setVisible(true);  // Asegura que esté visible
+    //ui->peaton_miguel->raise();
+    //ui->peaton_miguel->move(this->width() - 420, yPasoPeatones);
     /*ui->peaton_socio->resize(100, 100);  // Asegura tamaño
     ui->peaton_socio->setVisible(true);  // Asegura que esté visible
     ui->peaton_socio->raise();
@@ -102,6 +116,8 @@ MainWindow::~MainWindow()
 {
     delete cocheRojo;
     delete camioncito;
+    for (auto p : peatones) delete p;
+    peatones.clear();
     delete ui;
 }
 
@@ -138,7 +154,14 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     if (camioncito) camioncito->mover(x+330,y+100);
 
     for (auto peaton : peatones) {
-        peaton->mover(x,y+100); //muestra, pero no hace caso a x
+        if (!peaton->cruzando) {//Cuando cambias de tamaño la ventana, los peatones se recolocan a valores fijos. Esto puede resultar en saltos visuales si están cruzando en ese momento.
+            if (peaton->nombre=="socio"){
+                peaton->mover(x,y+150); //muestra, pero no hace caso a x
+            }
+            if (peaton->nombre=="miguel"){
+                peaton->mover(x,y+320); //muestra, pero no hace caso a x
+            }
+        }
     }
 }
 
@@ -172,34 +195,37 @@ void MainWindow::cambiarSemaforo()
 // Función para mover todos los vehículos
 void MainWindow::moverVehiculos()//cambiar cruzandoPeaton
 {
-    int velocidad = 15;
+    bool hayPeatonCruzando = std::any_of(peatones.begin(), peatones.end(), [](Peaton* p){
+        return p->cruzando;
+    });
+        int velocidad = 15;
 
-    // Mover el coche rojo
-    if (cocheRojo) {
-        bool enZonaPasoCoche = cocheRojo->label->y() <= yPasoPeatones-150  && cocheRojo->label->y() >= yPasoPeatones-250 ;
-        bool nomueveCoche= enZonaPasoCoche && (semaforoRojo || cruzandoPeaton);
-        if(nomueveCoche){
-            cocheY += 0;}
-        else{cocheY += velocidad;}
+        // Mover el coche rojo
+        if (cocheRojo) {
+            bool enZonaPasoCoche = cocheRojo->label->y() <= yPasoPeatones-150  && cocheRojo->label->y() >= yPasoPeatones-250 ;
+            bool nomueveCoche= enZonaPasoCoche && (semaforoRojo || hayPeatonCruzando);
+            if(nomueveCoche){
+                cocheY += 0;}
+            else{cocheY += velocidad;}
 
-        if (cocheY > height()) {
-            cocheY = -300;
+            if (cocheY > height()) {
+                cocheY = -300;
+            }
+            cocheRojo->mover(cocheRojo->label->x(), cocheY);
         }
-        cocheRojo->mover(cocheRojo->label->x(), cocheY);
-    }
 
-    // Mover el camión
-    if (camioncito) {
-        bool enZonaPasoCamion = camioncito->label->y() <= yPasoPeatones + 200 && camioncito->label->y() >= yPasoPeatones ;
-        bool nomueveCamion= enZonaPasoCamion && (semaforoRojo || cruzandoPeaton);
-        if(nomueveCamion) {camionY-=0;}
-        else{ camionY -= velocidad;}
+        // Mover el camión
+        if (camioncito) {
+            bool enZonaPasoCamion = camioncito->label->y() <= yPasoPeatones + 200 && camioncito->label->y() >= yPasoPeatones ;
+            bool nomueveCamion= enZonaPasoCamion && (semaforoRojo || hayPeatonCruzando);
+            if(nomueveCamion) {camionY-=0;}
+            else{ camionY -= velocidad;}
 
-        if (camionY <-400) {
-            camionY = 450;
+            if (camionY <-400) {
+                camionY = 450;
+            }
+            camioncito->mover(camioncito->label->x(), camionY);
         }
-        camioncito->mover(camioncito->label->x(), camionY);
-    }
 }
 
 
@@ -207,7 +233,7 @@ void MainWindow::moverPeaton() {
     for (auto peaton : peatones) {
         //peaton->mover(this->width() - 550, peaton->label->y());
 
-        if (peaton->cruzando==false && !semaforoRojo && (peaton->label->x() > 500 && peaton->label->x() < this->width() - 520)) {
+        if (peaton->cruzando==false && !semaforoRojo && (peaton->label->x() > 530 && peaton->label->x() < this->width() - 520)) {
             return;  // Solo puede empezar a cruzar cuando hay semáforo rojo (para coches)
         }
         // Mover todos los peatones
@@ -223,15 +249,30 @@ void MainWindow::moverPeaton() {
     //}
 
     //for (auto peaton : peatones) {
+        if (peaton->nombre == "socio") {
+            // Si ya ha cruzado, resetear su posición
+            qDebug() << "Peaton:" << peaton->label->x();
+            if (peaton->label->x() < 500) {
+                peaton->label->move(this->width() - 420, peaton->label->y());
+                peaton->cruzando = false;  // El peatón ha terminado de cruzar
+                peaton->velocidad = QRandomGenerator::global()->bounded(2, 10); // nueva velocidad aleatoria
+            }
 
-        // Si ya ha cruzado, resetear su posición
-        if (peaton->label->x() < 500) {
-            peaton->label->move(this->width() - 420, peaton->label->y());
-            peaton->cruzando = false;  // El peatón ha terminado de cruzar
-            peaton->velocidad = QRandomGenerator::global()->bounded(2, 10); // nueva velocidad aleatoria
+            peaton->mover(peaton->label->x() - peaton->velocidad, peaton->label->y());
         }
 
-        peaton->mover(peaton->label->x() - peaton->velocidad, peaton->label->y());
+        if (peaton->nombre == "miguel") {
+            qDebug() << "Peaton2:" << peaton->label->x();
+            // Si ya ha cruzado, resetear su posición
+            if (peaton->label->x() > this->width() - 420) {
+                peaton->label->move(500, peaton->label->y());
+                peaton->cruzando = false;  // El peatón ha terminado de cruzar
+                peaton->velocidad = QRandomGenerator::global()->bounded(2, 10); // nueva velocidad aleatoria
+            }
+
+            peaton->mover(peaton->label->x() + peaton->velocidad, peaton->label->y());
+        }
+
     }
 }
 
