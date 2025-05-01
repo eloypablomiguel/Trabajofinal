@@ -37,4 +37,17 @@ public:
     void mover(int x, int y) override;
 };
 
+class Peaton : public VehiculoBase {
+public:
+    Peaton(QLabel *lbl, const QString &rutaImagen, int ancho = 100, int alto = 100)
+        : VehiculoBase(lbl, rutaImagen, ancho, alto), cruzando(false) {}
+
+    void mover(int x, int y) override; //{
+        //VehiculoBase::mover(x, y);
+    //}
+
+    bool cruzando;  // Estado si el peatón está cruzando la calle
+    int velocidad;  // Velocidad de movimiento del peatón
+};
+
 #endif // VEHICULO_H

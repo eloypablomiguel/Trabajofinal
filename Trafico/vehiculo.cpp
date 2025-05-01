@@ -29,9 +29,13 @@ void VehiculoBase::mostrar() {
 
 void Coche::mover(int x, int y) {
     VehiculoBase::mover(x, y);
-    // Aquí podrías añadir un comportamiento de movimiento específico para el coche si lo tuvieras
+    // Aquí podemos añadir un comportamiento de movimiento específico para el coche
 }
 
 void Camion::mover(int x, int y) {
+    VehiculoBase::mover(x, y);
+}
+
+void Peaton::mover(int x, int y){
     VehiculoBase::mover(x, y);
 }

@@ -4,11 +4,14 @@
 #include "qlabel.h"
 #include <QMainWindow>
 #include <QTimer>
+#include <vector>
+#include <algorithm>
 
 class VehiculoBase; // Declaración adelantada
 class Coche;
 class Camion;
 class Semaforo;
+class Peaton;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -48,7 +51,7 @@ private:
     int camionY; // Posición y actual del camión
 
     QTimer *timerPeaton;
-    int peatonX; //posicion x actual peaton
+    //int peatonX; //posicion x actual peaton
 
     // CAMION SE PARA
     int yPasoPeatones = 200; // Puedes ajustar según dónde esté tu paso de peatones
@@ -57,6 +60,8 @@ private:
     bool semaforoRojo;  // true = rojo, false = verde
     bool cruzandoPeaton;
 
-    int velocidadSocio;
+    //int velocidadSocio;
+
+    std::vector<Peaton*> peatones;  // Contenedor para los peatones
 };
 #endif // MAINWINDOW_H
