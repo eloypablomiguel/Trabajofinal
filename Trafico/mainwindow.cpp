@@ -248,7 +248,7 @@ void MainWindow::moverPeaton() {
             qDebug() << "Peaton2:" << peaton->label->x();
             // Si ya ha cruzado, resetear su posición
             if (peaton->label->x() > this->width() - 480) {
-                peaton->label->move(500, peaton->label->y());
+                peaton->label->move(450, peaton->label->y());
                 peaton->cruzando = false;  // El peatón ha terminado de cruzar
                 peaton->velocidad = QRandomGenerator::global()->bounded(2, 10); // nueva velocidad aleatoria
             }
