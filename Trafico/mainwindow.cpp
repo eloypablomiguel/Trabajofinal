@@ -70,7 +70,11 @@ MainWindow::MainWindow(QWidget *parent)
     Peaton* nuevoPeaton2 = new Peaton(ui->peaton_miguel, ruta + "foto_miguel.png",100,100, "miguel");
     peatones.push_back(nuevoPeaton2);
 
+    Peaton* nuevoPeaton3 = new Peaton(ui->peaton_pablo, ruta + "foto_pablo.png",100,100, "pablo");
+    peatones.push_back(nuevoPeaton3);
+
     ui->peaton_miguel->resize(100, 100);  // Tamaño visible
+    //ui->peaton_pablo->resize(100, 100);  // Tamaño visible
     //ui->peaton_miguel->setVisible(true);  // Mostrarlo
     //ui->peaton_miguel->raise();           // Asegura que está por delante
     //ui->peaton_miguel->move(500, yPasoPeatones);  // Posición inicial
@@ -156,7 +160,10 @@ void MainWindow::resizeEvent(QResizeEvent *event)
     for (auto peaton : peatones) {
         if (!peaton->cruzando) {//Cuando cambias de tamaño la ventana, los peatones se recolocan a valores fijos. Esto puede resultar en saltos visuales si están cruzando en ese momento.
             if (peaton->nombre=="socio"){
-                peaton->mover(x,y+150); //muestra, pero no hace caso a x
+                peaton->mover(x,y+130); //muestra, pero no hace caso a x
+            }
+            if (peaton->nombre=="pablo"){
+                peaton->mover(x,y+190); //muestra, pero no hace caso a x
             }
             if (peaton->nombre=="miguel"){
                 peaton->mover(x,y+320); //muestra, pero no hace caso a x
@@ -234,7 +241,8 @@ void MainWindow::moverPeaton() {
         //peaton->mover(this->width() - 550, peaton->label->y());
 
         if (peaton->cruzando==false && !semaforoRojo && (peaton->label->x() > 530 && peaton->label->x() < this->width() - 520)) {
-            return;  // Solo puede empezar a cruzar cuando hay semáforo rojo (para coches)
+            //return;  // Solo puede empezar a cruzar cuando hay semáforo rojo (para coches)
+            continue;  // Solo puede empezar a cruzar cuando hay semáforo rojo (para coches)
         }
         // Mover todos los peatones
         // Si el peatón está dentro del paso de cebra, marcamos que está cruzando
@@ -249,7 +257,7 @@ void MainWindow::moverPeaton() {
     //}
 
     //for (auto peaton : peatones) {
-        if (peaton->nombre == "socio") {
+        if (peaton->nombre == "socio"||peaton->nombre == "pablo") {
             // Si ya ha cruzado, resetear su posición
             qDebug() << "Peaton:" << peaton->label->x();
             if (peaton->label->x() < 500) {
