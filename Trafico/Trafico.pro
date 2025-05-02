@@ -15,6 +15,7 @@ SOURCES += \
     vehiculo.cpp
 
 HEADERS += \
+    claxon.h \
     mainwindow.h \
     semaforo.h \
     vehiculo.h

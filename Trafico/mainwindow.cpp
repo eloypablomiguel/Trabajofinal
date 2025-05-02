@@ -11,7 +11,7 @@
 //ruta eloy-->"C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
 //ruta Pablo-->"C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
 //miguel -> C:\\Users\\migue\\Desktop\\Trabajofinal\\Trafico\\";
-const QString ruta = "C:\\Users\\UGE\\Desktop\\Trabajo final\\Trabajofinal\\Trafico\\";
+const QString ruta = "C:\\Users\\pablo\\Desktop\\Trabajofinal\\Trafico\\";
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -194,6 +194,10 @@ void MainWindow::moverVehiculos()
                 cocheY = -300;
             }
             cocheRojo->mover(cocheRojo->label->x(), cocheY);
+
+            if(!semaforoRojo && hayPeatonCruzando){
+                cocheRojo->hacerSonarClaxon();
+            }
         }
 
         // Mover el camión
@@ -234,7 +238,7 @@ void MainWindow::moverPeaton() {
     //for (auto peaton : peatones) {
         if (peaton->nombre == "socio"||peaton->nombre == "pablo") {
             // Si ya ha cruzado, resetear su posición
-            qDebug() << "Peaton:" << peaton->label->x();
+            //qDebug() << "Peaton:" << peaton->label->x();
             if (peaton->label->x() < 500) {
                 peaton->label->move(this->width() - 420, peaton->label->y());
                 peaton->cruzando = false;  // El peatón ha terminado de cruzar
@@ -245,7 +249,7 @@ void MainWindow::moverPeaton() {
         }
 
         if (peaton->nombre == "miguel") {
-            qDebug() << "Peaton2:" << peaton->label->x();
+           // qDebug() << "Peaton2:" << peaton->label->x();
             // Si ya ha cruzado, resetear su posición
             if (peaton->label->x() > this->width() - 480) {
                 peaton->label->move(450, peaton->label->y());

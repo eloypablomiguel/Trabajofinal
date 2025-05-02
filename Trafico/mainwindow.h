@@ -7,6 +7,7 @@
 #include <vector>
 #include <algorithm>
 
+
 class VehiculoBase; // Declaración adelantada
 class Coche;
 class Camion;
