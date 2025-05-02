@@ -51,16 +51,12 @@ private:
     int camionY; // Posición y actual del camión
 
     QTimer *timerPeaton;
-    //int peatonX; //posicion x actual peaton
 
     // CAMION SE PARA
     int yPasoPeatones = 200; // Puedes ajustar según dónde esté tu paso de peatones
 
     bool camionDetenido = false;
     bool semaforoRojo;  // true = rojo, false = verde
-    bool cruzandoPeaton;
-
-    //int velocidadSocio;
 
     std::vector<Peaton*> peatones;  // Contenedor para los peatones
 };

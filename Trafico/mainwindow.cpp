@@ -55,15 +55,7 @@ MainWindow::MainWindow(QWidget *parent)
     cocheRojo = new Coche(ui->label_7, ruta + "coche_rojo.png", 250, 250);
     camioncito = new Camion(ui->label_8, ruta + "camion.png", 300, 300);
 
-/*    //Prueba peatones
-    QPixmap peaton(ruta + "foto_socio.png");
-    QPixmap pixmapEscaladopeaton=peaton.scaled(100, 100, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    ui->peaton_socio->setPixmap(pixmapEscaladopeaton);
-    peatonX = ui->peaton_socio->x(); // o valor inicial fijo
-    timerPeaton = new QTimer(this);
-    connect(timerPeaton, &QTimer::timeout, this, &MainWindow::moverPeaton);
-    timerPeaton->start(50);
-*/
+
     Peaton* nuevoPeaton = new Peaton(ui->peaton_socio, ruta + "foto_socio.png",100,100,"socio");
     peatones.push_back(nuevoPeaton);
 
@@ -74,23 +66,10 @@ MainWindow::MainWindow(QWidget *parent)
     peatones.push_back(nuevoPeaton3);
 
     ui->peaton_miguel->resize(100, 100);  // Tamaño visible
-    //ui->peaton_pablo->resize(100, 100);  // Tamaño visible
-    //ui->peaton_miguel->setVisible(true);  // Mostrarlo
-    //ui->peaton_miguel->raise();           // Asegura que está por delante
-    //ui->peaton_miguel->move(500, yPasoPeatones);  // Posición inicial
 
     timerPeaton = new QTimer(this);
     connect(timerPeaton, &QTimer::timeout, this, &MainWindow::moverPeaton);
     timerPeaton->start(50);
-
-    //ui->peaton_miguel->resize(100, 100);  // Asegura tamaño
-    //ui->peaton_miguel->setVisible(true);  // Asegura que esté visible
-    //ui->peaton_miguel->raise();
-    //ui->peaton_miguel->move(this->width() - 420, yPasoPeatones);
-    /*ui->peaton_socio->resize(100, 100);  // Asegura tamaño
-    ui->peaton_socio->setVisible(true);  // Asegura que esté visible
-    ui->peaton_socio->raise();
-    ui->peaton_socio->move(this->width() - 420, yPasoPeatones);*/ //prueba
 
     //Timer semaforo
     timer = new QTimer(this);
@@ -105,15 +84,11 @@ MainWindow::MainWindow(QWidget *parent)
     // Posición inicial del coche y del camion (ahora se gestiona en la creación del Vehiculo)
     cocheY = 0;
     camionY = 0;     // Comienza desde abajo
-    //peatonX=500;
 
     // Temporizador para animar los coches (ahora es uno solo)
     timerVehiculos = new QTimer(this);
     connect(timerVehiculos, &QTimer::timeout, this, &MainWindow::moverVehiculos); // Conectamos a la nueva función
     timerVehiculos->start(50);  // 50 ms = 20 FPS aprox.
-
-    //Velocidad Random incial Socio
-    //velocidadSocio = QRandomGenerator::global()->bounded(2, 10);
 }
 
 MainWindow::~MainWindow()
@@ -200,7 +175,7 @@ void MainWindow::cambiarSemaforo()
 }
 
 // Función para mover todos los vehículos
-void MainWindow::moverVehiculos()//cambiar cruzandoPeaton
+void MainWindow::moverVehiculos()
 {
     bool hayPeatonCruzando = std::any_of(peatones.begin(), peatones.end(), [](Peaton* p){
         return p->cruzando;
@@ -283,30 +258,3 @@ void MainWindow::moverPeaton() {
 
     }
 }
-
-/*void MainWindow::moverPeaton() {
-    if (!cruzandoPeaton && !semaforoRojo && (peatonX > 500 && peatonX < this->width() - 520)) {
-        return;  // Solo puede empezar a cruzar cuando hay semáforo rojo (para coches)
-    }
-
-    // Si el peatón está dentro del paso de cebra, marcamos que está cruzando
-    if (semaforoRojo && peatonX < this->width() - 520 && peatonX > 500) {
-        cruzandoPeaton = true;
-    }
-
-    peatonX -= velocidadSocio;
-    qDebug() << "PeatonX:" << peatonX;
-
-    //acelera si se pone en rojo los peatones
-    if (cruzandoPeaton && !semaforoRojo){
-        velocidadSocio+=2;
-    }
-    // Si ya ha cruzado, lo reinicias y desactivas el cruce
-    if (peatonX < 500) {
-        peatonX = this->width() - 420;
-        cruzandoPeaton = false;
-        velocidadSocio = QRandomGenerator::global()->bounded(2, 10); // nueva velocidad aleatoria
-    }
-
-    ui->peaton_socio->move(peatonX, ui->peaton_socio->y());
-}*/
