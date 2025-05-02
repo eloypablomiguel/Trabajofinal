@@ -211,6 +211,9 @@ void MainWindow::moverVehiculos()
                 camionY = 450;
             }
             camioncito->mover(camioncito->label->x(), camionY);
+            if(!semaforoRojo && hayPeatonCruzando){
+                camioncito->hacerSonarClaxon();
+            }
         }
 }
 

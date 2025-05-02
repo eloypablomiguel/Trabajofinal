@@ -30,7 +30,7 @@ void VehiculoBase::mostrar() {
 void Coche::mover(int x, int y) {
     VehiculoBase::mover(x, y);
     // Aquí podemos añadir un comportamiento de movimiento específico para el coche
-    claxon = new Claxon();
+
 }
 
 void Camion::mover(int x, int y) {
