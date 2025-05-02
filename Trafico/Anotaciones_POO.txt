@@ -1,0 +1,18 @@
+
+Herencia Simple: OK
+
+Coche hereda de VehiculoBase: La clase Coche extiende la funcionalidad de VehiculoBase. Esto se ve en la declaración class Coche : public VehiculoBase. Coche hereda los atributos (como label e imagenOriginal) y los métodos (como mover, escalar, ocultar y mostrar) de VehiculoBase. Luego, puede añadir su propio comportamiento específico (aunque en este caso, el método mover de Coche simplemente llama al de la clase base).
+
+Camion hereda de VehiculoBase: De manera similar, la clase Camion también hereda de VehiculoBase. Esto le permite compartir la funcionalidad básica de un vehículo y, potencialmente, definir comportamientos particulares para un camión en el futuro.
+
+Polimorfismo: OK
+
+El polimorfismo se manifiesta a través de la función virtual mover en la clase base VehiculoBase y su redefinición (override) en las clases derivadas Coche y Camion. Aunque en el código actual la implementación del mover en las clases derivadas es la misma que en la base, la intención del polimorfismo está ahí. En un diseño más complejo, podrías tener diferentes lógicas de movimiento para cada tipo de vehículo, y a través de un puntero o referencia a VehiculoBase, podrías llamar al método mover y se ejecutaría la versión específica del objeto al que apunta.
+
+Herencia Múltiple:
+
+No hay un caso directo 
+
+Asociación: CON PINZAS
+
+Existe una asociación entre la clase MainWindow y las clases Semaforo y VehiculoBase (a través de Coche y Camion). La clase MainWindow contiene instancias de Semaforo (semaforoCoches, semaforoPeatones) y punteros a objetos de tipo VehiculoBase (cocheRojo, camioncito). Estas clases están relacionadas, pero tienen ciclos de vida independientes. MainWindow usa objetos de estas otras clases para gestionar la simulación.
